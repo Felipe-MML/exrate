@@ -26,8 +26,9 @@ const Price = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (value) {
-      console.log(price);
+    if (value && price) {
+      const key = Object.keys(price)[0] as string;
+      console.log(price[key].high);
     }
   };
 
