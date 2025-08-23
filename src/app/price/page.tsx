@@ -18,10 +18,10 @@ const Price = () => {
   const [value, setValue] = useState<number | null>(null);
   const [convertedValue, setConvertedValue] = useState<number | null>(null);
 
-  const [from, setFrom] = useState<string | null>(null);
-  const [to, setTo] = useState<string | null>(null);
+  const [from, setFrom] = useState<string>("");
+  const [to, setTo] = useState<string>("");
 
-  const { price } = usePrice("USD", "BRL");
+  const { price } = usePrice(from, to);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,7 +48,7 @@ const Price = () => {
           </label>
         </div>
         <div className="flex gap-10 max-lg:flex-col">
-          <Select>
+          <Select onValueChange={(e) => setFrom(e)}>
             <SelectTrigger className="w-[280px]">
               <SelectValue placeholder="Selecione a moeda" />
             </SelectTrigger>
@@ -62,7 +62,7 @@ const Price = () => {
             </SelectContent>
           </Select>
           <p className="max-lg:self-center">Para</p>
-          <Select>
+          <Select onValueChange={(e) => setTo(e)}>
             <SelectTrigger className="w-[280px]">
               <SelectValue placeholder="Selecione a moeda" />
             </SelectTrigger>
