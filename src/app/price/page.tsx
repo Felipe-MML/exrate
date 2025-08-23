@@ -12,15 +12,22 @@ import {
 
 import { useState } from "react";
 
+import { usePrice } from "@/hooks/usePrice";
+
 const Price = () => {
   const [value, setValue] = useState<number | null>(null);
   const [convertedValue, setConvertedValue] = useState<number | null>(null);
+
+  const [from, setFrom] = useState<string | null>(null);
+  const [to, setTo] = useState<string | null>(null);
+
+  const { price } = usePrice("USD", "BRL");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (value) {
-      setConvertedValue(value * 2);
+      console.log(price);
     }
   };
 
@@ -35,7 +42,7 @@ const Price = () => {
             Valor:{" "}
             <input
               type="number"
-              className="border border-borders px-2 py-1 w-25 focus:border-contrast"
+              className="border border-borders rounded-2xl px-2 py-1 w-25 focus:border-contrast"
               onChange={(e) => setValue(parseFloat(e.target.value))}
             />
           </label>
