@@ -28,12 +28,14 @@ const Price = () => {
 
     if (value && price) {
       const key = Object.keys(price)[0] as string;
-      console.log(price[key].high);
+      setConvertedValue(
+        (value * (parseFloat(price[key].ask) + parseFloat(price[key].bid))) / 2
+      );
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center mt-50 max-lg:mt-20">
       <h2 className="text-mainText text-2xl font-bold">Conversor</h2>
       <p className="text-mainText ">Selecione a moeda que deseja converter</p>
 
@@ -43,14 +45,14 @@ const Price = () => {
             Valor:{" "}
             <input
               type="number"
-              className="border border-borders rounded-2xl px-2 py-1 w-25 focus:border-contrast"
+              className="border border-borders rounded-2xl px-2 py-1 w-25 focus:border-contrast shadow-lg"
               onChange={(e) => setValue(parseFloat(e.target.value))}
             />
           </label>
         </div>
         <div className="flex gap-10 max-lg:flex-col">
           <Select onValueChange={(e) => setFrom(e)}>
-            <SelectTrigger className="w-[280px]">
+            <SelectTrigger className="w-[280px] shadow-lg">
               <SelectValue placeholder="Selecione a moeda" />
             </SelectTrigger>
             <SelectContent>
@@ -64,7 +66,7 @@ const Price = () => {
           </Select>
           <p className="max-lg:self-center">Para</p>
           <Select onValueChange={(e) => setTo(e)}>
-            <SelectTrigger className="w-[280px]">
+            <SelectTrigger className="w-[280px] shadow-lg">
               <SelectValue placeholder="Selecione a moeda" />
             </SelectTrigger>
             <SelectContent>
@@ -81,13 +83,13 @@ const Price = () => {
         <input
           type="submit"
           value="Converter"
-          className="bg-primarybuttons w-25 p-1 text-background rounded-3xl mt-5 hover:bg-hoverbuttons transition-colors duration-100 self-center hover:cursor-pointer"
+          className="bg-primarybuttons w-25 p-2 text-contrast rounded-3xl mt-5 hover:bg-hoverbuttons transition-colors duration-100 self-center hover:cursor-pointer shadow-lg"
         />
       </form>
 
       {convertedValue && (
         <div className="">
-          <p>{convertedValue}</p>
+          <p>{convertedValue.toFixed(2)}</p>
         </div>
       )}
     </div>
