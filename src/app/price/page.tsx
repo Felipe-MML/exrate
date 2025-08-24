@@ -12,7 +12,10 @@ import {
 
 import { useState } from "react";
 
+import codes from "@/services/codes.json";
+
 import { usePrice } from "@/hooks/usePrice";
+import { useCodes } from "@/hooks/useCodes";
 
 const Price = () => {
   const [value, setValue] = useState<number | null>(null);
@@ -58,9 +61,11 @@ const Price = () => {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Moedas</SelectLabel>
-                <SelectItem value="USD">Dólar americano</SelectItem>
-                <SelectItem value="BRL">Real brasileiro</SelectItem>
-                <SelectItem value="EUR">Euro</SelectItem>
+                {Object.entries(codes.codes).map(([key, value]) => (
+                  <SelectItem key={key} value={key}>
+                    {value}
+                  </SelectItem>
+                ))}
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -72,9 +77,11 @@ const Price = () => {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Moedas</SelectLabel>
-                <SelectItem value="USD">Dólar americano</SelectItem>
-                <SelectItem value="BRL">Real brasileiro</SelectItem>
-                <SelectItem value="EUR">Euro</SelectItem>
+                {Object.entries(codes.codes).map(([key, value]) => (
+                  <SelectItem key={key} value={key}>
+                    {value}
+                  </SelectItem>
+                ))}
               </SelectGroup>
             </SelectContent>
           </Select>
