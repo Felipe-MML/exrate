@@ -15,7 +15,6 @@ import { useState } from "react";
 import codes from "@/services/codes.json";
 
 import { usePrice } from "@/hooks/usePrice";
-import { useCodes } from "@/hooks/useCodes";
 
 const Price = () => {
   const [value, setValue] = useState<number | null>(null);
@@ -63,7 +62,7 @@ const Price = () => {
                 <SelectLabel>Moedas</SelectLabel>
                 {Object.entries(codes.codes).map(([key, value]) => (
                   <SelectItem key={key} value={key}>
-                    {value}
+                    {key}
                   </SelectItem>
                 ))}
               </SelectGroup>
@@ -79,7 +78,7 @@ const Price = () => {
                 <SelectLabel>Moedas</SelectLabel>
                 {Object.entries(codes.codes).map(([key, value]) => (
                   <SelectItem key={key} value={key}>
-                    {value}
+                    {key}
                   </SelectItem>
                 ))}
               </SelectGroup>
