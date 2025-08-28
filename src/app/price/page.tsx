@@ -11,10 +11,10 @@ import {
 } from "@/components/ui/select";
 
 import { useState } from "react";
+import { usePrice } from "@/hooks/usePrice";
+import { useConversionsFilter } from "@/hooks/useConversionsFilter";
 
 import codes from "@/services/codes.json";
-
-import { usePrice } from "@/hooks/usePrice";
 
 const Price = () => {
   const [value, setValue] = useState<number | null>(null);
@@ -24,9 +24,12 @@ const Price = () => {
   const [to, setTo] = useState<string>("");
 
   const { price } = usePrice(from, to);
+  const { filteredConversions } = useConversionsFilter(from);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    console.log(filteredConversions);
 
     if (value && price) {
       const key = Object.keys(price)[0] as string;
@@ -42,13 +45,22 @@ const Price = () => {
       <p className="text-mainText ">Selecione a moeda que deseja converter</p>
 
       <form className="flex flex-col mt-2" onSubmit={handleSubmit}>
-        <div className="flex justify-center mb-5">
+        <div className="flex justify-between mb-5">
           <label className="flex flex-col text-mainText">
             Valor:{" "}
             <input
               type="number"
               className="border border-borders rounded-2xl px-2 py-1 w-25 focus:border-contrast shadow-lg"
               onChange={(e) => setValue(parseFloat(e.target.value))}
+            />
+          </label>
+          <label className="flex flex-col text-mainText">
+            Convertido:{" "}
+            <input
+              type="number"
+              className="border border-borders rounded-2xl px-2 py-1 w-25 focus:border-contrast shadow-lg"
+              value={convertedValue || ""}
+              readOnly
             />
           </label>
         </div>
@@ -69,6 +81,7 @@ const Price = () => {
             </SelectContent>
           </Select>
           <p className="max-lg:self-center">Para</p>
+
           <Select onValueChange={(e) => setTo(e)}>
             <SelectTrigger className="w-[280px] shadow-lg">
               <SelectValue placeholder="Selecione a moeda" />
@@ -92,12 +105,6 @@ const Price = () => {
           className="bg-primarybuttons w-25 p-2 text-contrast rounded-3xl mt-5 hover:bg-hoverbuttons transition-colors duration-100 self-center hover:cursor-pointer shadow-lg"
         />
       </form>
-
-      {convertedValue && (
-        <div className="">
-          <p>{convertedValue.toFixed(2)}</p>
-        </div>
-      )}
     </div>
   );
 };
