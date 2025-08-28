@@ -10,29 +10,42 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import { useState } from "react";
 import { usePrice } from "@/hooks/usePrice";
 import { useConversionsFilter } from "@/hooks/useConversionsFilter";
-
 import codes from "@/services/codes.json";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { conversionSchema, Conversion } from "@/schemas/conversion.schema";
+import { useState } from "react";
+
 const Price = () => {
-  const [value, setValue] = useState<number | null>(null);
   const [convertedValue, setConvertedValue] = useState<number | null>(null);
 
-  const [from, setFrom] = useState<string>("");
-  const [to, setTo] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<Conversion>({
+    resolver: zodResolver(conversionSchema),
+  });
+
+  const from = watch("from");
+  const to = watch("to");
+  const value = watch("value");
 
   const { price } = usePrice(from, to);
   const { filteredConversions } = useConversionsFilter(from);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (value && price) {
+  const onSubmit = (data: Conversion) => {
+    if (price) {
       const key = Object.keys(price)[0] as string;
       setConvertedValue(
-        (value * (parseFloat(price[key].ask) + parseFloat(price[key].bid))) / 2
+        (data.value *
+          (parseFloat(price[key].ask) + parseFloat(price[key].bid))) /
+          2
       );
     }
   };
@@ -42,65 +55,90 @@ const Price = () => {
       <h2 className="text-mainText text-2xl font-bold">Conversor</h2>
       <p className="text-mainText ">Selecione a moeda que deseja converter</p>
 
-      <form className="flex flex-col mt-2" onSubmit={handleSubmit}>
+      <form className="flex flex-col mt-2" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-between mb-5">
           <label className="flex flex-col text-mainText">
-            Valor:{" "}
+            Valor:
             <input
               type="number"
+              {...register("value", { valueAsNumber: true })}
               className="border border-borders rounded-2xl px-2 py-1 w-25 focus:border-contrast shadow-lg"
-              onChange={(e) => setValue(parseFloat(e.target.value))}
             />
+            {errors.value && (
+              <span className="text-red-500 text-sm">
+                {errors.value.message}
+              </span>
+            )}
           </label>
           <label className="flex flex-col text-mainText">
-            Convertido:{" "}
+            Convertido:
             <input
               type="number"
               className="border border-borders rounded-2xl px-2 py-1 w-25 focus:border-contrast shadow-lg"
-              value={convertedValue || ""}
+              value={convertedValue?.toFixed(2) || ""}
               readOnly
             />
           </label>
         </div>
+
         <div className="flex gap-10 max-lg:flex-col">
-          <Select
-            onValueChange={(e) => {
-              setFrom(e);
-              setTo("");
-              setConvertedValue(null);
-            }}
-          >
-            <SelectTrigger className="w-[280px] shadow-lg">
-              <SelectValue placeholder="Selecione a moeda" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Moedas</SelectLabel>
-                {Object.entries(codes.codes).map(([key, value]) => (
-                  <SelectItem key={key} value={key}>
-                    {key} - {value}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <div>
+            <Select
+              onValueChange={(val) => {
+                setValue("from", val, { shouldValidate: true });
+                setValue("to", "", { shouldValidate: true });
+                setConvertedValue(null);
+              }}
+              value={from}
+            >
+              <SelectTrigger className="w-[280px] shadow-lg">
+                <SelectValue placeholder="Selecione a moeda" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Moedas</SelectLabel>
+                  {Object.entries(codes.codes).map(([key, value]) => (
+                    <SelectItem key={key} value={key}>
+                      {key} - {value}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            {errors.from && (
+              <span className="text-red-500 text-sm">
+                {errors.from.message}
+              </span>
+            )}
+          </div>
+
           <p className="max-lg:self-center">Para</p>
 
-          <Select onValueChange={(e) => setTo(e)} value={to}>
-            <SelectTrigger className="w-[280px] shadow-lg" disabled={!from}>
-              <SelectValue placeholder="Selecione a moeda" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Moedas</SelectLabel>
-                {filteredConversions.map(({ code, name }) => (
-                  <SelectItem key={code} value={code}>
-                    {name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
+          <div>
+            <Select
+              onValueChange={(val) =>
+                setValue("to", val, { shouldValidate: true })
+              }
+              value={to}
+            >
+              <SelectTrigger className="w-[280px] shadow-lg" disabled={!from}>
+                <SelectValue placeholder="Selecione a moeda" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Moedas</SelectLabel>
+                  {filteredConversions.map(({ code, name }) => (
+                    <SelectItem key={code} value={code}>
+                      {name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+            {errors.to && (
+              <span className="text-red-500 text-sm">{errors.to.message}</span>
+            )}
+          </div>
         </div>
 
         <input
