@@ -1,18 +1,28 @@
 import { useMemo } from "react";
 
 import conversions from "@/services/conversions.json";
+import codes from "@/services/codes.json";
 
-export const useConversionsFilter = (codigo: string): any => {
+type Code = keyof typeof codes.codes;
+
+export const useConversionsFilter = (code: string) => {
   const filteredConversions = useMemo(() => {
-    if (!codigo) return [];
+    if (!code) return [];
 
-    return Object.keys(conversions)
-      .filter((key) => key.includes(codigo))
+    const conversionsKeys = Object.keys(conversions.conversions);
+
+    const validConversions = conversionsKeys
+      .filter((key) => key.startsWith(`${code}-`) || key.endsWith(`-${code}`))
       .map((key) => {
-        const [a, b] = key.split("-");
-        return a === codigo ? b : a;
+        const [from, to] = key.split("-");
+        return from === code ? to : from;
       });
-  }, [codigo]);
 
-  return filteredConversions;
+    return Array.from(new Set(validConversions)).map((code) => ({
+      code,
+      name: codes.codes[code as Code],
+    }));
+  }, [code]);
+
+  return { filteredConversions };
 };

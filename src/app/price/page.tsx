@@ -29,8 +29,6 @@ const Price = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log(filteredConversions);
-
     if (value && price) {
       const key = Object.keys(price)[0] as string;
       setConvertedValue(
@@ -65,7 +63,13 @@ const Price = () => {
           </label>
         </div>
         <div className="flex gap-10 max-lg:flex-col">
-          <Select onValueChange={(e) => setFrom(e)}>
+          <Select
+            onValueChange={(e) => {
+              setFrom(e);
+              setTo("");
+              setConvertedValue(null);
+            }}
+          >
             <SelectTrigger className="w-[280px] shadow-lg">
               <SelectValue placeholder="Selecione a moeda" />
             </SelectTrigger>
@@ -74,7 +78,7 @@ const Price = () => {
                 <SelectLabel>Moedas</SelectLabel>
                 {Object.entries(codes.codes).map(([key, value]) => (
                   <SelectItem key={key} value={key}>
-                    {key}
+                    {key} - {value}
                   </SelectItem>
                 ))}
               </SelectGroup>
@@ -82,16 +86,16 @@ const Price = () => {
           </Select>
           <p className="max-lg:self-center">Para</p>
 
-          <Select onValueChange={(e) => setTo(e)}>
-            <SelectTrigger className="w-[280px] shadow-lg">
+          <Select onValueChange={(e) => setTo(e)} value={to}>
+            <SelectTrigger className="w-[280px] shadow-lg" disabled={!from}>
               <SelectValue placeholder="Selecione a moeda" />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Moedas</SelectLabel>
-                {Object.entries(codes.codes).map(([key, value]) => (
-                  <SelectItem key={key} value={key}>
-                    {key}
+                {filteredConversions.map(({ code, name }) => (
+                  <SelectItem key={code} value={code}>
+                    {name}
                   </SelectItem>
                 ))}
               </SelectGroup>
