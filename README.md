@@ -1,7 +1,5 @@
 # ExRate: Seu Conversor de Moedas Moderno e Eficiente
 
-![ExRate Logo](felipe-mml/exrate/exrate-3cf3c31899a6a770314ef873b120aa737c543ebb/public/logo.png)
-
 ## 📖 Sobre o Projeto
 
 O **ExRate** é uma aplicação web moderna e intuitiva para conversão de moedas em tempo real. Construído com as tecnologias mais recentes, como Next.js e TypeScript, o ExRate oferece uma experiência de usuário fluida e responsiva, permitindo que você converta uma ampla variedade de moedas com facilidade e precisão.
