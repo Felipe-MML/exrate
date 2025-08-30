@@ -57,16 +57,6 @@ Para executar este projeto localmente, siga os passos abaixo:
 
 4.  Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
 
-## 🖼️ Telas da Aplicação
-
-*(Esta seção pode ser preenchida com screenshots da sua aplicação)*
-
-**Página Inicial**
-![Página Inicial da Aplicação](<URL da imagem da página inicial>)
-
-**Página de Conversão**
-![Página de Conversão da Aplicação](<URL da imagem da página de conversão>)
-
 ## 📄 Licença
 
 Este projeto é distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
