@@ -52,12 +52,16 @@ const Price = () => {
 
   return (
     <div className="flex flex-col items-center mt-50 max-lg:mt-20">
-      <h2 className="text-mainText text-2xl font-bold">Conversor</h2>
-      <p className="text-mainText ">Selecione a moeda que deseja converter</p>
+      <h2 className="text-mainText text-2xl font-bold select-none">
+        Conversor
+      </h2>
+      <p className="text-mainText select-none">
+        Selecione a moeda que deseja converter
+      </p>
 
       <form className="flex flex-col mt-2" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex justify-between mb-5">
-          <label className="flex flex-col text-mainText">
+          <label className="flex flex-col text-mainText select-none">
             Valor:
             <input
               type="number"
@@ -70,7 +74,7 @@ const Price = () => {
               </span>
             )}
           </label>
-          <label className="flex flex-col text-mainText">
+          <label className="flex flex-col text-mainText select-none">
             Convertido:
             <input
               type="number"
@@ -91,7 +95,7 @@ const Price = () => {
               }}
               value={from}
             >
-              <SelectTrigger className="w-[280px] shadow-lg">
+              <SelectTrigger className="w-[280px] shadow-lg select-none">
                 <SelectValue placeholder="Selecione a moeda" />
               </SelectTrigger>
               <SelectContent>
@@ -112,7 +116,7 @@ const Price = () => {
             )}
           </div>
 
-          <p className="max-lg:self-center">Para</p>
+          <p className="max-lg:self-center select-none">Para</p>
 
           <div>
             <Select
@@ -121,7 +125,10 @@ const Price = () => {
               }
               value={to}
             >
-              <SelectTrigger className="w-[280px] shadow-lg" disabled={!from}>
+              <SelectTrigger
+                className="w-[280px] shadow-lg select-none"
+                disabled={!from}
+              >
                 <SelectValue placeholder="Selecione a moeda" />
               </SelectTrigger>
               <SelectContent>
