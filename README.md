@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ExRate: Seu Conversor de Moedas Moderno e Eficiente
 
-## Getting Started
+## 📖 Sobre o Projeto
 
-First, run the development server:
+O **ExRate** é uma aplicação web moderna e intuitiva para conversão de moedas em tempo real. Construído com as tecnologias mais recentes, como Next.js e TypeScript, o ExRate oferece uma experiência de usuário fluida e responsiva, permitindo que você converta uma ampla variedade de moedas com facilidade e precisão.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Este projeto foi desenvolvido para ser uma ferramenta prática e eficiente, ideal para quem precisa de cotações atualizadas de forma rápida.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Funcionalidades Principais
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+* **Conversão em Tempo Real:** Obtenha as taxas de câmbio mais recentes para suas conversões.
+* **Interface Amigável:** Um design limpo e fácil de usar que torna a conversão de moedas uma tarefa simples e agradável.
+* **Ampla Variedade de Moedas:** Suporte para dezenas de moedas de todo o mundo, desde o Dólar Americano até criptomoedas como Bitcoin e Ethereum.
+* **Seleção Inteligente:** Ao selecionar uma moeda de origem, a lista de moedas de destino é atualizada automaticamente para mostrar apenas as conversões válidas.
+* **Validação de Formulário:** Validação em tempo real para garantir que os dados inseridos sejam válidos, proporcionando uma experiência sem erros.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Tecnologias Utilizadas
 
-## Learn More
+Este projeto foi construído utilizando um stack moderno e robusto:
 
-To learn more about Next.js, take a look at the following resources:
+* **Framework:** [Next.js](https://nextjs.org/)
+* **Linguagem:** [TypeScript](https://www.typescriptlang.org/)
+* **Estilização:** [Tailwind CSS](https://tailwindcss.com/)
+* **Componentes UI:** [Shadcn/UI](https://ui.shadcn.com/) (baseado em Radix UI)
+* **Cliente HTTP:** [Axios](https://axios-http.com/) para fazer requisições à API.
+* **Gerenciamento de Formulários:** [React Hook Form](https://react-hook-form.com/).
+* **Validação de Esquemas:** [Zod](https://zod.dev/).
+* **API de Cotações:** [Awesomeapi](https://economia.awesomeapi.com.br/).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🚀 Como Executar o Projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Para executar este projeto localmente, siga os passos abaixo:
 
-## Deploy on Vercel
+1.  **Clone o repositório:**
+    ```bash
+    git clone [https://github.com/felipe-mml/exrate.git](https://github.com/felipe-mml/exrate.git)
+    cd exrate
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2.  **Instale as dependências:**
+    ```bash
+    npm install
+    # ou
+    yarn install
+    # ou
+    pnpm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3.  **Execute o servidor de desenvolvimento:**
+    ```bash
+    npm run dev
+    # ou
+    yarn dev
+    # ou
+    pnpm dev
+    ```
+
+4.  Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
+
+## 🖼️ Telas da Aplicação
+
+*(Esta seção pode ser preenchida com screenshots da sua aplicação)*
+
+**Página Inicial**
+![Página Inicial da Aplicação](<URL da imagem da página inicial>)
+
+**Página de Conversão**
+![Página de Conversão da Aplicação](<URL da imagem da página de conversão>)
+
+## 📄 Licença
+
+Este projeto é distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
